@@ -6,6 +6,7 @@ class Browser {
       ...option
     }
   }
+
   async start () {
     if (!this.browser) {
 		
@@ -13,23 +14,24 @@ class Browser {
       this.browser.once('disconnected', () => {
         this.browser = undefined
       })
-	  //login
-	  const page = await this.browser.newPage();
-	  await page.on('dialog', async dialog => {
-	   
-	   dialog.accept();
-	   
-	  });
-	  
-	  await page.goto('http://www.infoccsp.com/sso/sso-login.do');
-
-	  await page.type('#companyCode', 'HBWCKGAG');
-	  await page.type('#username', 'hbwckg001');
-	  await page.type('#password', 'hbw654321');
-	  
-	  await page.click('#btnLogin');
-	  
+      
+      //login
+      const page = await this.browser.newPage();
+      await page.on('dialog', async dialog => {
+       
+       dialog.accept();
+       
+      });
+      
+      await page.goto('http://www.infoccsp.com/sso/sso-login.do');
+  
+      await page.type('#companyCode', 'HBWCKGAG');
+      await page.type('#username', 'hbwckg005');
+      await page.type('#password', 'hcbd8888');
+      
+      await page.click('#btnLogin');
     }
+
 	
     return this.browser
   }

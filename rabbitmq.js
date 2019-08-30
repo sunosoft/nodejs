@@ -34,7 +34,7 @@ class RabbitMQ {
             })
             .catch(function () {
             
-                    self.open = amqp.connect(self.hosts[num]);
+                    self.open = amqp.connect(self.addUrl);
 
             });
     }
@@ -46,7 +46,7 @@ class RabbitMQ {
             .then(function (conn) {
                 conn.on('error', (err) => {
                     console.log('connect_error ' + err.message, err);
-                    self.open = amqp.connect(this.addUrl);
+                    self.open = amqp.connect(self.addUrl);
                     self.receiveQueueMsg(queueName, receiveCallBack, errCallBack);
                 })
 
@@ -64,8 +64,10 @@ class RabbitMQ {
                         });
                     })
             })
-            .catch(function () {
-                console.log('config issue, please check');
+            .catch(function (err) {
+                console.log('config_connect_error ' + err.message, err);
+                self.open = amqp.connect(self.addUrl);
+                self.receiveQueueMsg(queueName, receiveCallBack, errCallBack);
             });
 	}
 }
